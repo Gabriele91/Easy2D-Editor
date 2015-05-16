@@ -1,0 +1,9 @@
+{
+    gravity=(0 -9.8)
+    metersInPixel=32.0
+
+	Objects=
+	{
+		
+	}
+}

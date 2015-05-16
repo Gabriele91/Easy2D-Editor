@@ -1,0 +1,11 @@
+
+{
+	textures=<textures/textures.e2d>
+	meshes=<meshes/meshes.e2d>
+	frameSets=<frameSets/frameSets.e2d>
+	tables=<tables/tables.e2d>
+	fonts=<fonts/fonts.e2d>
+	sounds=<sounds/sounds.e2d>
+	scripts=<scripts/scripts.e2d>
+	shaders=<shaders/shaders.e2d>
+}

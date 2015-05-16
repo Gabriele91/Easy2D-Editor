@@ -1,0 +1,16 @@
+<RCC>
+    <qresource>
+    <file alias="darkorange.stylesheet">assets/stylesheet/darkorange.stylesheet</file>
+    <file alias="darkorangeOSX.stylesheet">assets/stylesheet/darkorangeOSX.stylesheet</file>
+    <file alias="checkbox.png">assets/images/checkbox.png</file>
+    <file alias="down_arrow.png">assets/images/down_arrow.png</file>
+    <file alias="handle.png">assets/images/handle.png</file>
+    <file alias="allert_window.png">assets/images/allert_window.png</file>
+    <file alias="e2d_window.png">assets/images/e2d_window.png</file>
+    <file alias="E2DLogo.png">assets/images/E2DLogo.png</file>
+    <file alias="E2DLogo256.png">assets/images/E2DLogo256.png</file>
+    <file alias="E2DLogo128.png">assets/images/E2DLogo128.png</file>
+    <file alias="E2DLogo32.png">assets/images/E2DLogo32.png</file>
+    <file alias="grid_texture.png">assets/images/grid_texture.png</file>
+    </qresource>
+</RCC>
