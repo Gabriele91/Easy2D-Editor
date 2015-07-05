@@ -127,12 +127,12 @@ protected:
     * create window
     */
     virtual void createWindow(const char* appname,
-                              Easy2D::uint width,
-                              Easy2D::uint height,
-                              Easy2D::uint bites,
-                              Easy2D::uint freamPerSecond,
+                              uint width,
+                              uint height,
+                              uint freamPerSecond,
                               bool fullscreen,
-                              AntiAliasing dfAA=NOAA)
+                              TypeBuffers type=COLOR32DEPTH24STENCIL8,
+                              Screen::AntiAliasing dfAA=NOAA)
 	{ /* NONE */ }
 
     /**

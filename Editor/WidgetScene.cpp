@@ -4,150 +4,6 @@
 #include <QDir>
 #include <QDebug>
 
-namespace Easy2D
-{
-
-class OBBox2
-{
-
-	//type
-    Vec2       center;
-    Angle      rotation;
-    Vec2       extents;
-
-	//from aabb
-	void set(const AABox2& aabox)
-	{
-		center=aabox.getCenter(); 
-        rotation=Radian(0);
-		extents=aabox.getSize(); 
-	}
-	//from points 
-	void set(const std::vector<Vec2>& points)
-	{
-		//centroid 
-		Vec2 centroid;
-		//calc C
-		Mat4 cov2;
-		calc2DCov(points,centroid,cov2);
-		//calc eigen(C)
-		Vec2 basis[2];
-		calcEigenVectors2D(cov2,basis[0],basis[1]);
-		//R=|v1,v2|
-        rotation=Radian(std::atan2(basis[0].x,basis[1].y));
-		//min max
-		Vec2 vmax(-Vec2::MAX);
-		Vec2 vmin( Vec2::MAX);
-		float* max=((float*)(vmax));
-		float* min=((float*)(vmin));
-		//calc projection
-		for(const Vec2& p:points)
-		{
-			Vec2 diff=p-centroid;
-			for(uchar i=0;i!=2;++i)
-			{
-				float length = diff.dot(basis[i]);
-				if (length > max[i]) 
-					max[i] = length;
-				else if (length < min[i]) 
-					min[i] = length;
-			}
-		}
-		
-		// compute center, extents
-		center = centroid;
-		for (uchar i=0;i!=2;++i)
-		{
-			center += 0.5f*(min[i]+max[i])*basis[i];
-			((float*)(extents))[i] = 0.5f*(max[i]-min[i]);
-		}
-
-	}
-	//applay transform
-	OBBox2 applay(const Matrix4x4& m4) const
-	{
-		OBBox2 newbox(*this);
-		newbox.extents*=m4.getScale2D();
-        newbox.rotation+=m4.getRotZ();
-		newbox.center=m4.mul2D(newbox.center);
-	}
-
-private:
-
-	static void calc2DCov(const std::vector<Vec2>& points,
-						  Vec2& centroid,
-						  Mat4& cov2)
-	{
-		for(const Vec2& p:points) centroid+=p;
-		if(points.size()>1) centroid/=points.size();
-		
-		// compute the (co)variances
-		Vec2 var;
-		float covXY=0;
-		for(const Vec2& p:points)
-		{
-			Vec2 diff = p - centroid;
-			var.x += diff.x * diff.x;
-			var.y += diff.y * diff.y;
-			covXY+= diff.x * diff.y;
-		}
-		//normalize
-		if(points.size()>1) 
-		{
-			var.x/=points.size();
-			var.y/=points.size();
-			covXY/=points.size();
-		}	
-		//to matrix
-		Mat4 C;
-		cov2(0,0) = var.x;
-		cov2(1,1) = var.y;
-		cov2(1,0) = cov2(0,1) = covXY;
-	}
-	static void calcEigenVectors2D(const Mat4& cov2,
-								   Vec2& v1,
-								   Vec2& v2) 
-	{	
-		//alias
-		const float& a=cov2(0,0);
-		const float& b=cov2(1,0);
-		const float& c=cov2(0,1);
-		const float& d=cov2(1,1);
-		#define eqF(x,y,z) (std::abs(x-y)<z)
-		#define eqFE(x,y)  eqF(x,y,0.0001)
-		//3 case
-		if(eqFE(b,0.0) && eqFE(c,0.0))
-		{ 
-			v1=Vec2(1,0); 
-			v2=Vec2(0,1);
-			return;
-		}
-		//calc det (determinant) & t (trace)
-		float det=a*d-b*c;
-		float t=a+b;
-		//calc l1 & l2 (Eigen values)
-		float lp= fmodf(((t*t)/4-det),0.5);
-		float l1 = t/2 + lp;
-		float l2 = t/2 - lp;
-		//case 1
-		if(!eqFE(c,0.0))
-		{ 
-			v1=Vec2(l1-d,c); 
-			v2=Vec2(l2-d,c);
-			return;
-		}
-		//case 2
-		//if(!eqFE(b,0.0))
-		{ 
-			v1=Vec2(b,l1-a); 
-			v2=Vec2(b,l2-a);
-			return;
-		}
-	}
-};
-
-};
-
 WidgetScene::WidgetScene(QWidget *parent)
     :QGLWidget(Editor::context(),parent)
     ,Scene(false)
@@ -555,8 +411,10 @@ void WidgetScene::mouseDoubleClickEvent(QMouseEvent *event)
     {
         //mouse pos
         Easy2D::Vec2 mousePos(event->localPos().x(),event->localPos().y());
-        //get pos
-        auto objSelected=picking(camera->getWMouse(mousePos));
+        //pick list
+        auto listOPicked=picking(camera->getWMouse(mousePos));
+        //get last object
+        auto objSelected=listOPicked[listOPicked.size()-1];
         //if not selected
         if(!(objSelected && editor->selectObject(objSelected)))
         {

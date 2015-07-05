@@ -16,6 +16,8 @@ INCLUDEPATH+= $$EASY2D_PATH/Easy2D/
 INCLUDEPATH+= $$EASY2D_PATH/Easy2D/include/
 INCLUDEPATH+= $$EASY2D_PATH/Easy2D/include/audio/
 INCLUDEPATH+= $$EASY2D_PATH/Easy2D/include/gui/
+INCLUDEPATH+= $$EASY2D_PATH/Easy2D/include/ui/
+INCLUDEPATH+= $$EASY2D_PATH/Easy2D/include/socket/
 INCLUDEPATH+= $$EASY2D_PATH/Easy2D/include/script/
 INCLUDEPATH+= $$EASY2D_PATH/Easy2D/include/thread/
 
@@ -60,6 +62,8 @@ macx {
     LIBS += -framework OpenAL
     LIBS += -lz
     LIBS += -lbz2
+    #c++14
+    CONFIG += c++14
 }
 #only linux
 linux-g++ {
@@ -72,4 +76,6 @@ linux-g++ {
     LIBS+= -L$$EASY2D_PATH/Easy2D/dependencies-linux/lib/ -lfreetype
     LIBS+= -L$$EASY2D_PATH/Easy2D/dependencies-linux/lib/ -llua
     LIBS+= -L$$EASY2D_PATH/Easy2D/dependencies-linux/lib/ -lopenal
+    #c++14
+    CONFIG += c++14
 }
