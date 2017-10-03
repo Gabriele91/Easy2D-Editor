@@ -165,7 +165,7 @@ QStringList ComponentAnimatedSprite::getFrameSetsNames()
     auto animations=getAnimations();
     for(const auto& frame : animations.frames)
     {
-        list<< frame->getName().c_str();
+        list << QString::fromUtf8(frame->getName());
     }
 
     return list;

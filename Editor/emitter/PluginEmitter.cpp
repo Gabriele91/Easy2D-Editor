@@ -105,7 +105,7 @@ QString ComponentEmitter::getTextureName()
     //exist texture?
     if(!emitter->getTexture()) return "";
     //texture name
-    return emitter->getTexture()->getName().c_str();
+    return QString::fromUtf8(emitter->getTexture()->getName());
 }
 QString ComponentEmitter::selectTexture()
 {

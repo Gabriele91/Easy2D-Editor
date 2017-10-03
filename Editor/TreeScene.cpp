@@ -85,7 +85,7 @@ QString TreeScene::currentName ()
     if(!nameItem || nameItem==sceneItem || nameItem==rootItem)
         return "";
     //name
-    return 	QString(nameItem->getName().c_str());
+    return 	QString::fromUtf8(nameItem->getName());
 }
 Easy2D::Object* TreeScene::currentObject ()
 {

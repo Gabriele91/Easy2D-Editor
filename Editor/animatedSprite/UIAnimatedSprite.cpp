@@ -114,7 +114,7 @@ void UIAnimatedSprite::initAnimations(const Animations& animations,
     for(size_t i=0;i!=animations.frames.size();++i)
     {
         //add some pages
-        QString name(animations.frames[i]->getName().c_str());
+        QString name(QString::fromUtf8(animations.frames[i]->getName()));
         addFrameSet(name,animations.times[i],
                     animations.loops[i]);
     }
@@ -123,7 +123,7 @@ void UIAnimatedSprite::pushAnimation(const Animation& anim)
 {
     if(anim.frame)
     {
-        QString name(anim.frame->getName().c_str());
+        QString name(QString::fromUtf8(anim.frame->getName()));
         addFrameSet(name,
                     anim.time,
                     anim.loop);
@@ -343,7 +343,7 @@ void UIAnimatedSprite::addFrameSet(const QString &name,
             Animation anim=this->csprite->selectAnimation(pbFrameSet->text());
             if(!anim.frame) return;
             //set anim
-            pbFrameSet->setText(anim.frame->getName().c_str());
+            pbFrameSet->setText(QString::fromUtf8(anim.frame->getName()));
             //applay
             this->applayFrames();
         });
@@ -552,8 +552,8 @@ Easy2D::Color UIAnimatedSprite::getColor()
 //blends
 void UIAnimatedSprite::setBlend(int blendsrc,int blenddst)
 {
-    ui->cbBlendSrc->setCurrentText(Easy2D::BLEND::toString(blendsrc).c_str());
-    ui->cbBlendDst->setCurrentText(Easy2D::BLEND::toString(blenddst).c_str());
+    ui->cbBlendSrc->setCurrentText(QString::fromUtf8(Easy2D::BLEND::toString(blendsrc)));
+    ui->cbBlendDst->setCurrentText(QString::fromUtf8(Easy2D::BLEND::toString(blenddst)));
 }
 int UIAnimatedSprite::getBlendSrc()
 {

@@ -179,9 +179,9 @@ public:
 	{
 	    //open
 		FILE *pfile=fopen(path,"rb");
-		QByteArray output(("load file: "+path).c_str());
-		qDebug(output);
-		Q_ASSERT_X(pfile,"Load file",QByteArray(("error load file: "+path).c_str()));
+        //QByteArray output((const char*)("load file: "+path));
+        //qDebug(output);
+        //Q_ASSERT_X(pfile,"Load file",QByteArray(QString::fromUtf8("error load file: "+path)));
 		//get size
 		fseek(pfile,0,SEEK_END);
 		len=ftell(pfile);
@@ -265,8 +265,8 @@ void Easy2DInit::saveTable(const QString& path,const Easy2D::Table& table)
 {
 	QFile file(path);
 	if(file.open(QIODevice::WriteOnly))
-	{
-		file.write(table.serialize().c_str());
+    {
+        file.write(QString::fromUtf8(table.serialize()).toUtf8());
 		file.close();
 	}
 }

@@ -211,8 +211,8 @@ void UIEmitter::updateUI(const Easy2D::Emitter& emitter)
     ui->pbTexture->setText(cemitter->getTextureName());
     ui->pbTexture->blockSignals(false);
 
-    ui->cbBlendSrc->setCurrentText(Easy2D::BLEND::toString(emitter.getBlendSrc()).c_str());
-    ui->cbBlendDst->setCurrentText(Easy2D::BLEND::toString(emitter.getBlendDst()).c_str());
+    ui->cbBlendSrc->setCurrentText(QString::fromUtf8(Easy2D::BLEND::toString(emitter.getBlendSrc())));
+    ui->cbBlendDst->setCurrentText(QString::fromUtf8(Easy2D::BLEND::toString(emitter.getBlendDst())));
     //
     ui->leMaxParticles->setText(QString::number(emitter.getMaxParticles()));
     ui->leEmissionRate->setText(QString::number(emitter.getEmissionRate()));

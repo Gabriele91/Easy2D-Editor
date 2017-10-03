@@ -24,12 +24,12 @@ class ComponentsInterface
     Easy2D::Object* lastObject{ nullptr };
     Editor* editor{ nullptr };
     //editor methos
-    DFUNCTION<Easy2D::ResourcesGroup*(void)> getResourcesGroup{ nullptr };
-    DFUNCTION<QString (const QString&,const QString&)> selectRerouce;
-    DFUNCTION<QString (const QString&,const QString&,const QStringList&)> selectRerouceFilter;
-    DFUNCTION<void(void)>  lockEditor;
-    DFUNCTION<void(void)>  unlockEditor;
-    DFUNCTION<QGLContext*(void)>  contextEditor;
+    std::function<Easy2D::ResourcesGroup*(void)> getResourcesGroup{ nullptr };
+    std::function<QString (const QString&,const QString&)> selectRerouce;
+    std::function<QString (const QString&,const QString&,const QStringList&)> selectRerouceFilter;
+    std::function<void(void)>  lockEditor;
+    std::function<void(void)>  unlockEditor;
+    std::function<QGLContext*(void)>  contextEditor;
     //run method
     void run(Easy2D::Object* obj,float dt)
     {

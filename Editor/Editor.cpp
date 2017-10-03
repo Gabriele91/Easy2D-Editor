@@ -235,15 +235,11 @@ void Editor::setGlobalFromTable(const Easy2D::Table& scene)
     //tmp color
     Easy2D::Color color;
 
-    color.fromVec4(
-    scene.getVector4D("ambientLight",engine->getAmbientLight().toVec4())
-    );
+    color = scene.getColor("ambientLight",engine->getAmbientLight());
 
     engine->setAmbientLight(color);
 
-    color.fromVec4(
-    scene.getVector4D("clearColor",engine->getClearColor().toVec4())
-    );
+    color = scene.getColor("clearColor",engine->getClearColor());
 
     engine->setClearColor(color);
 
@@ -519,10 +515,10 @@ void Editor::saveEvent()
                                  .getTable("tables")
                                  .getPath()
                                  .getDirectory();
-       QFile sfile((pathTables+"/scene.table.e2d").c_str());
+       QFile sfile(QString::fromUtf8(pathTables+"/scene.table.e2d"));
        sfile.open(QIODevice::WriteOnly);
        //write
-       sfile.write(scene.c_str(),scene.size());
+       sfile.write((const char*)scene,scene.byteSize());
        //close
        sfile.close();
        /* SAVE RESOURCE FILE */
@@ -540,8 +536,8 @@ void Editor::saveEvent()
            }
            else
            {
-               Easy2DInit::saveTable(aTable.getPath().getPath().c_str(),//dir
-                                     aTable);                           //table
+               Easy2DInit::saveTable(QString::fromUtf8(aTable.getPath().getPath()),//dir
+                                     aTable);                   //table
                strResources+=value.first.string()+"=<"+aTable
                                                        .getPath()
                                                        .getRelativePathTo(tableRs.getPath())
@@ -551,10 +547,10 @@ void Editor::saveEvent()
        //
        strResources+="}";
        //write
-       QFile rfile(resources->getTable().getPath().getPath().c_str());
+       QFile rfile(QString::fromUtf8(resources->getTable().getPath().getPath()));
        rfile.open(QIODevice::WriteOnly);
        //write
-       rfile.write(strResources.c_str(),strResources.size());
+       rfile.write(strResources,strResources.byteSize());
        //close
        rfile.close();
        /* END SAVE SCENE */

@@ -39,7 +39,7 @@ public:
 		list->clear();
 		for(auto element:*table)
 		{
-			QString name=element.first.string().c_str();
+            QString name=QString::fromUtf8(element.first.string());
             if(filter.indexOf(name)!=-1) break;
 			list->addItem(name);
 		}

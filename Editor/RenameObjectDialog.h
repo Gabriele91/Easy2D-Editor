@@ -53,7 +53,7 @@ public:
         if(!obj || !obj->getParent() || obj->getName().size()==0)
             return QDialog::Rejected;
         //setup ui
-        ui.editName->setText(QString(obj->getName().c_str()));
+        ui.editName->setText(QString::fromUtf8(obj->getName()));
         //save target
         target=obj;
         //exec

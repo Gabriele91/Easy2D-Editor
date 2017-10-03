@@ -3,6 +3,7 @@
 #include <QMouseEvent>
 #include <QDir>
 #include <QDebug>
+#include <QImageReader>
 
 WidgetScene::WidgetScene(QWidget *parent)
     :QGLWidget(Editor::context(),parent)
@@ -611,13 +612,15 @@ void WidgetScene::onStart()
 	mesh->setBatching(false);
 	//add texture
 	auto texture=new Easy2D::Texture();
-	//load
-    QImage gridImage; 
-	gridImage.load( ":grid_texture.png" );
+    //load
+    QImage gridImage;
+    gridImage.load( ":/grid_texture.png" );
+    //gridImage.load( "://grid_texture.png" );
+    //gridImage.load( "assets/images/grid_texture.png" );
     //to opengl format
-	QImage gridImageGL=QGLWidget::convertToGLFormat(gridImage);
+    QImage gridImageGL=QGLWidget::convertToGLFormat(gridImage);
 	//to easy 2D texture
-	texture->loadFromBinaryData(
+    texture->loadFromBinaryData(
 		gridImageGL.bits(),
 		gridImageGL.width(),
 		gridImageGL.height(),

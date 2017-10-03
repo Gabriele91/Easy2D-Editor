@@ -1,5 +1,4 @@
-QT = core opengl gui
-
+QT = core opengl gui widgets
 
 #path easy2d
 EASY2D_PATH = $$PWD/../..
@@ -15,12 +14,18 @@ INCLUDEPATH += speaker/
 INCLUDEPATH += emitter/
 INCLUDEPATH += body/
 
-release: DESTDIR = $$PWD/../release
-debug:   DESTDIR = $$PWD/../debug
-OBJECTS_DIR = $$DESTDIR/.obj
-MOC_DIR = $$DESTDIR/.moc
-RCC_DIR = $$DESTDIR/.qrc
-UI_DIR = $$DESTDIR/.ui
+Release:DESTDIR = $$PWD/../release
+Release:OBJECTS_DIR = $$PWD/../release/.obj
+Release:MOC_DIR = $$PWD/../release/.moc
+Release:RCC_DIR = $$PWD/../release/.rcc
+Release:UI_DIR = $$PWD/../release/.ui
+
+Debug:DESTDIR = $$PWD/../debug
+Debug:OBJECTS_DIR = $$PWD/../debug/.obj
+Debug:MOC_DIR = $$PWD/../debug/.moc
+Debug:RCC_DIR = $$PWD/../debug/.rcc
+Debug:UI_DIR = $$PWD/../debug/.ui
+
 
 RESOURCES += \
     Editor.qrc

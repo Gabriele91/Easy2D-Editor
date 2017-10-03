@@ -35,8 +35,8 @@ int editorApplication(QApplication& a)
     {
         Easy2D::Table config;
         Easy2DInit::readTable(locationConf,config);
-        startUp=config.getFloat("startUp")!=0.0;
-        pathProject=config.getString("path").c_str();
+        startUp=config.getBool("startUp");
+        pathProject=QString::fromUtf8(config.getString("path"));
         startUp=startUp && QFile::exists(pathProject);
     }
 
@@ -49,8 +49,8 @@ int editorApplication(QApplication& a)
             startUp=dialog.startUp();
             pathProject=dialog.getProjectPath();
             Easy2D::Table config;
-            config.set("startUp",(float)startUp);
-            config.set("path",pathProject.toUtf8().data());
+            config.set("startUp",(bool)startUp);
+            config.set("path",Easy2D::String(pathProject.toUtf8().data()));
             Easy2DInit::saveTable(locationConf,config);
         }
         Editor editor(pathProject,locationConf);
@@ -63,6 +63,7 @@ int editorApplication(QApplication& a)
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    Q_INIT_RESOURCE(Editor);
     Easy2DInit::initApplication();
 
     int returnCode=0;

@@ -10,11 +10,11 @@ bool ResourcesGroupTabs::addReource(const QString& name,
 	if(!name.size() || reources->getTable().exists(name.toUtf8().data()))
 		return false;
 	//get directory resource
-	auto directory=QString(reources->getTable().getPath().getDirectory().c_str());
+    auto directory=QString::fromUtf8(reources->getTable().getPath().getDirectory());
 	//path file
 	auto pathFile=Easy2D::Utility::Path(path.toUtf8().data());
-    auto filename=QString(pathFile.getFilebasename().c_str());
-    auto fileext=QString(pathFile.getLeftExtension().c_str());
+    auto filename=QString::fromUtf8(pathFile.getFilebasename());
+    auto fileext=QString::fromUtf8(pathFile.getLeftExtension());
     auto finalpath=directory+'/'+filename+'.'+fileext;
 	//copy file
 	size_t i=0;

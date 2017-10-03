@@ -3,7 +3,8 @@
 CONFIG += c++11
 QMAKE_CXXFLAGS+=-DDISABLE_SIMD\
                 -DORDERED_TABLE\
-                -DUSE_LUA
+                -DUSE_LUA\
+                -D_SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS
 
 #-DDISABLE_SIMD -> I don't want overload new and delete
 #-DNEW_DELETE_OVERLOADABLE -> shared lib not used...
@@ -14,6 +15,7 @@ CONFIG(debug, debug|release){
 #includes
 INCLUDEPATH+= $$EASY2D_PATH/Easy2D/
 INCLUDEPATH+= $$EASY2D_PATH/Easy2D/include/
+INCLUDEPATH+= $$EASY2D_PATH/Easy2D/include/image/
 INCLUDEPATH+= $$EASY2D_PATH/Easy2D/include/audio/
 INCLUDEPATH+= $$EASY2D_PATH/Easy2D/include/gui/
 INCLUDEPATH+= $$EASY2D_PATH/Easy2D/include/ui/
@@ -24,26 +26,41 @@ INCLUDEPATH+= $$EASY2D_PATH/Easy2D/include/thread/
 #only window
 win32 {
 
+    CONFIG += windows
     #define window
     QMAKE_CXXFLAGS += -D_CRT_NONSTDC_NO_WARNINGS -D_MBCS
     #includes
     INCLUDEPATH+= $$EASY2D_PATH/Easy2D/include/window/
     INCLUDEPATH+= $$EASY2D_PATH/Easy2D/dependencies-win32/include/
     #links
+    LIBS+= Shlwapi.lib
+    LIBS+= ShFolder.lib
+    LIBS+= OpenGL32.lib
+    LIBS+= GLU32.lib
+    LIBS+= User32.lib
+    LIBS+= GDI32.lib
+    LIBS+= Advapi32.lib
+    LIBS+= $$EASY2D_PATH/Easy2D/dependencies-win32/lib/OpenAL32.lib
+    LIBS+= $$EASY2D_PATH/Easy2D/dependencies-win32/lib/RakNetDLL.lib
     CONFIG(debug, debug|release){
-        LIBS+= $$EASY2D_PATH/Easy2D/lib/Easy2D_EDITOR_D.lib
         LIBS+= $$EASY2D_PATH/Easy2D/dependencies-win32/lib/Box2D_D.lib
         LIBS+= $$EASY2D_PATH/Easy2D/dependencies-win32/lib/freetype250_D.lib
+        LIBS+= $$EASY2D_PATH/Easy2D/dependencies-win32/lib/lua51_D.lib
+    }
+    CONFIG(release, debug|release){
+        LIBS+= $$EASY2D_PATH/Easy2D/dependencies-win32/lib/Box2D.lib
+        LIBS+= $$EASY2D_PATH/Easy2D/dependencies-win32/lib/freetype250.lib
+        LIBS+= $$EASY2D_PATH/Easy2D/dependencies-win32/lib/lua51.lib
+    }
+    CONFIG(debug, debug|release){
+        LIBS+= $$EASY2D_PATH/Easy2D/lib/Easy2D_EDITOR_D.lib
     }
     CONFIG(release, debug|release){
         LIBS+= $$EASY2D_PATH/Easy2D/lib/Easy2D.lib
-        LIBS+= $$EASY2D_PATH/Easy2D/dependencies-win32/lib/Box2D.lib
-        LIBS+= $$EASY2D_PATH/Easy2D/dependencies-win32/lib/freetype250.lib
     }
-    LIBS+= $$EASY2D_PATH/Easy2D/dependencies-win32/lib/lua51.lib
-    LIBS+= $$EASY2D_PATH/Easy2D/dependencies-win32/lib/OpenAL32.lib
-    LIBS+= Shlwapi.lib
-    LIBS+= ShFolder.lib
+    #LIBS+= $$EASY2D_PATH/Easy2D/dependencies-win32/bin/OpenAL32.dll
+    #LIBS+= $$EASY2D_PATH/Easy2D/dependencies-win32/bin/RakNetDLL.dll
+
 }
 #only mac os x
 macx {

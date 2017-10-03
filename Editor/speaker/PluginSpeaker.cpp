@@ -67,7 +67,7 @@ void ComponentSpeaker::onRun(Easy2D::Object* obj,float dt)
     auto sound=speaker->getSound();
     if(sound)
     {
-        QString sName(sound->getName().c_str());
+        QString sName = QString::fromUtf8(sound->getName());
         if(sName != uispeaker->getSound())
         {
             uispeaker->setSound(sName);
@@ -95,7 +95,7 @@ QString ComponentSpeaker::selectSound()
 
     auto sound=speaker->getSound();
     QString defaultResource;
-    if(sound) defaultResource=sound->getName().c_str();
+    if(sound) defaultResource=QString::fromUtf8(sound->getName());
 
     QString name=resources(defaultResource,"sounds");
 

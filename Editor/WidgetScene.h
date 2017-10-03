@@ -105,43 +105,43 @@ public:
     //init editor
     void setEditor(Editor* argeditor);
     //onStart callback method
-    void setOnStart(DFUNCTION<void(void)> callback)
+    void setOnStart(std::function<void(void)> callback)
     {
         cbOnStart=callback;
     }
     //onRun callback method
-    void setOnRun(DFUNCTION<void(float)> callback)
+    void setOnRun(std::function<void(float)> callback)
     {
         cbOnRun=callback;
     }
     //onEnd callback method
-    void setOnEnd(DFUNCTION<void(void)> callback)
+    void setOnEnd(std::function<void(void)> callback)
     {
         cbOnEnd=callback;
     }
     //onEnd callback method
-    void setOnDrawGui(DFUNCTION<void(void)> callback)
+    void setOnDrawGui(std::function<void(void)> callback)
     {
         cbOnDrawGui=callback;
     }
     //input callbacks
-    void setOnMousePress(DFUNCTION<void(QMouseEvent *event)> callback)
+    void setOnMousePress(std::function<void(QMouseEvent *event)> callback)
     {
         cbOnMousePress=callback;
     }
-    void setOnMouseMove(DFUNCTION<void(QMouseEvent *event)> callback)
+    void setOnMouseMove(std::function<void(QMouseEvent *event)> callback)
     {
         cbOnMouseMove=callback;
     }
-    void setOnMouseRelease(DFUNCTION<void(QMouseEvent *event)> callback)
+    void setOnMouseRelease(std::function<void(QMouseEvent *event)> callback)
     {
         cbOnMouseRelease=callback;
     }
-    void setOnMouseWell(DFUNCTION<void(QWheelEvent *event)> callback)
+    void setOnMouseWell(std::function<void(QWheelEvent *event)> callback)
     {
         cbOnMouseWell=callback;
     }
-    void setOnDoubleClick(DFUNCTION<void(QMouseEvent *event)> callback)
+    void setOnDoubleClick(std::function<void(QMouseEvent *event)> callback)
     {
         cbOnDoubleClick=callback;
     }
@@ -157,11 +157,11 @@ public:
         timer.start();
     }
     //callbacks
-    void setOnEnterPlayMode(DFUNCTION<void(void)> callback)
+    void setOnEnterPlayMode(std::function<void(void)> callback)
     {
         cbOnEnterPlayMode=callback;
     }
-    void setOnExitPlayMode(DFUNCTION<void(void)> callback)
+    void setOnExitPlayMode(std::function<void(void)> callback)
     {
         cbOnExitPlayMode=callback;
     }
@@ -239,18 +239,18 @@ protected:
     //fake clear color
     Easy2D::Color clearColor;
     //callback methods
-    DFUNCTION<void(void)> cbOnStart;
-    DFUNCTION<void(float)> cbOnRun;
-    DFUNCTION<void(void)> cbOnEnd;
-    DFUNCTION<void(void)> cbOnEnterPlayMode;
-    DFUNCTION<void(void)> cbOnExitPlayMode;
-    DFUNCTION<void(void)> cbOnDrawGui;
+    std::function<void(void)> cbOnStart;
+    std::function<void(float)> cbOnRun;
+    std::function<void(void)> cbOnEnd;
+    std::function<void(void)> cbOnEnterPlayMode;
+    std::function<void(void)> cbOnExitPlayMode;
+    std::function<void(void)> cbOnDrawGui;
     //callback input methods
-    DFUNCTION<void(QMouseEvent *event)> cbOnMousePress;
-    DFUNCTION<void(QMouseEvent *event)> cbOnMouseMove;
-    DFUNCTION<void(QMouseEvent *event)> cbOnMouseRelease;
-    DFUNCTION<void(QWheelEvent *event)> cbOnMouseWell;
-    DFUNCTION<void(QMouseEvent *event)> cbOnDoubleClick;
+    std::function<void(QMouseEvent *event)> cbOnMousePress;
+    std::function<void(QMouseEvent *event)> cbOnMouseMove;
+    std::function<void(QMouseEvent *event)> cbOnMouseRelease;
+    std::function<void(QWheelEvent *event)> cbOnMouseWell;
+    std::function<void(QMouseEvent *event)> cbOnDoubleClick;
 	//virtual methos
 	virtual void onStart();
 	virtual void onRun(float dt);

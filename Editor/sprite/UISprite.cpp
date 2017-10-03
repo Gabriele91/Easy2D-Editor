@@ -165,8 +165,8 @@ Easy2D::Color UISprite::getColor()
 //blends
 void UISprite::setBlend(int blendsrc,int blenddst)
 {
-    ui->cbBlendSrc->setCurrentText(Easy2D::BLEND::toString(blendsrc).c_str());
-    ui->cbBlendDst->setCurrentText(Easy2D::BLEND::toString(blenddst).c_str());
+    ui->cbBlendSrc->setCurrentText(QString::fromUtf8(Easy2D::BLEND::toString(blendsrc)));
+    ui->cbBlendDst->setCurrentText(QString::fromUtf8(Easy2D::BLEND::toString(blenddst)));
 }
 int UISprite::getBlendSrc()
 {

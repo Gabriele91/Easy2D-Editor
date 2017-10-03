@@ -100,7 +100,7 @@ QString ComponentSprite::getTextureName()
     //exist texture?
     if(!sprite->getTexture()) return "";
     //texture name
-    return sprite->getTexture()->getName().c_str();
+    return QString::fromUtf8(sprite->getTexture()->getName());
 }
 QString ComponentSprite::selectTexture()
 {
